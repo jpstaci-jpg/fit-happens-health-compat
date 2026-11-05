@@ -1,0 +1,26 @@
+Compatibility package based on the published health 13.3.2 archive.
+
+Only implementation-related change:
+  pubspec.yaml: device_info_plus ^13.2.0 -> 11.4.0
+
+All upstream Dart, Android, iOS, plugin registration, privacy manifest,
+licensing, and other package files are unchanged. This retains Health 13.3.2
+fixes while allowing a dependency graph with share_plus 11.1.0 and win32 5.x.
+
+The consumer must retain its existing read-only HealthKit adapter. Changing
+this dependency constraint alone does not stop the upstream Health class
+from requesting device information. The consumer's iOS adapter avoids that
+request; device_info_plus 11.4.0 also contains no disk-capacity implementation.
+
+Rationale: FlutterFlow saves dependencyOverrides but does not currently
+apply the custom override in its exported pubspec. A package dependency
+constraint is applied normally by Dart pub and needs no resolver override.
+
+This is an independently maintained compatibility pin, not an upstream
+claim of support for device_info_plus 11.4.0. Validate the consumer's native
+build and physical-device behavior before distribution. Never substitute
+a guessed required-reason API declaration for inspection of native code.
+
+Original project: https://github.com/carp-dk/carp-health-flutter
+Published source: https://pub.dev/api/archives/health-13.3.2.tar.gz
+Original LICENSE is retained.
